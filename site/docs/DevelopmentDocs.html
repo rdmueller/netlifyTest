@@ -1,0 +1,612 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.13.0 by Michael Rose
+  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+<head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Development Docs - htmlSanityChecker</title>
+<meta name="description" content="Finding the bugs in your (generated) html - and real-life example for documentation-as code.">
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="htmlSanityChecker">
+<meta property="og:title" content="Development Docs">
+<meta property="og:url" content="https://hsc.aim42.org/template">
+
+
+
+
+
+
+  <meta name="twitter:site" content="@arc_improve42">
+  <meta name="twitter:title" content="Development Docs">
+  <meta name="twitter:description" content="Finding the bugs in your (generated) html - and real-life example for documentation-as code.">
+  <meta name="twitter:url" content="https://hsc.aim42.org/template">
+
+  
+    <meta name="twitter:card" content="summary">
+    
+  
+
+  
+
+
+
+
+
+
+
+
+<link rel="canonical" href="https://hsc.aim42.org/template">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "aim42",
+      "url": "https://hsc.aim42.org",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="htmlSanityChecker Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- favicon stuff from https://realfavicongenerator.net/ -->
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end favicon stuff -->
+
+<!-- start custom head snippets -->
+
+
+<link rel="stylesheet" href="/css/asciidoc.css">
+<link rel="stylesheet" href="/css/coderay.css">
+<style>
+    li p {
+        margin: 0 !important;
+    }
+
+    .admonitionblock td.icon {
+        border: 0px;
+    }
+
+    .admonitionblock td.content {
+        border-left: 1px solid black;
+        border-bottom: 0px;
+        font-size: 1em;
+    }
+    .literalblock pre,.literalblock pre[class],.listingblock pre,.listingblock pre[class]{
+        font-size:0.75em
+    }
+
+</style>
+
+<!-- for code blocks -->
+<style>
+    h1, h2, h3, h4, h5 {
+        color: #7a2518;
+        margin-bottom: 1em;
+    }
+    h2 ~ div.paragraph {
+        padding-left: 0.3em;
+    }
+    h3 ~ div.paragraph {
+        padding-left: 0.6em;
+    }
+    h4 ~ div.paragraph {
+        padding-left: 0.9em;
+    }
+    div.openblock.primary div.content, div.openblock.secondary div.content {
+        border: 1px solid #7a2518;
+        padding: 5px;
+    }
+    div.openblock.primary div.content div.content, div.openblock.secondary div.content div.content {
+        border: 0px solid #7a2518;
+        padding: 0;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .switch {
+        border-width: 1px 1px 0 1px;
+        border-style: solid;
+        border-color: #7a2518;
+        display: inline-block;
+    }
+
+    .switch--item {
+        padding: 2px 10px;
+        background-color: #ffffff;
+        color: #7a2518;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .switch--item:not(:first-child) {
+        border-width: 0 0 0 1px;
+        border-style: solid;
+        border-color: #7a2518;
+    }
+
+    .switch--item.selected {
+        background-color: #7a2519;
+        color: #ffffff;
+    }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+<script type="text/javascript">
+    function addBlockSwitches() {
+        $('.primary').each(function() {
+            primary = $(this);
+            createSwitchItem(primary, createBlockSwitch(primary)).item.addClass("selected");
+            primary.children('.title').remove();
+        });
+        $('.secondary').each(function(idx, node) {
+            secondary = $(node);
+            primary = findPrimary(secondary);
+            switchItem = createSwitchItem(secondary, primary.children('.switch'));
+            switchItem.content.addClass('hidden');
+            findPrimary(secondary).append(switchItem.content);
+            secondary.remove();
+        });
+    }
+
+    function createBlockSwitch(primary) {
+        blockSwitch = $('<div class="switch"></div>');
+        primary.prepend(blockSwitch);
+        return blockSwitch;
+    }
+
+    function findPrimary(secondary) {
+        candidate = secondary.prev();
+        while (!candidate.is('.primary')) {
+            candidate = candidate.prev();
+        }
+        return candidate;
+    }
+
+    function createSwitchItem(block, blockSwitch) {
+        blockName = block.children('.title').text();
+        content = block.children('.content').first().append(block.next('.colist'));
+        item = $('<div class="switch--item">' + blockName + '</div>');
+        item.on('click', '', content, function(e) {
+            $(this).addClass('selected');
+            $(this).siblings().removeClass('selected');
+            e.data.siblings('.content').addClass('hidden');
+            e.data.removeClass('hidden');
+        });
+        blockSwitch.append(item);
+        return {'item': item, 'content': content};
+    }
+
+    $(addBlockSwitches);
+</script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+<script> window.addEventListener("load", function(){ window.cookieconsent.initialise({ "palette": { "popup": { "background": "#eb6c44", "text": "#ffffff" }, "button": { "background": "#f5d948" } } })});
+</script>
+<!-- end custom head snippets -->
+
+    <style>
+        @media only screen and (min-width:768px) {
+            #toc.toc {
+                position: fixed;
+                left: 0px;
+                width: 14em;
+                font-size: 0.8em;
+                overflow: auto;
+                z-index: 1000;
+                padding: 0.5em;
+                border: 0;
+                padding-top: -20px;
+            }
+
+            div.masthead {
+                width: 100%;
+                position: fixed;
+                z-index: 1500;
+                background-color: white;
+            }
+
+            div.initial-content {
+            }
+
+            div#main-content {
+                xfont-size: small;
+                padding-left: 14em;
+                padding-right: 2em;
+                padding-top: 80px;
+            }
+        }
+    .masthead__inner-wrap {
+        padding: 5px;
+    }
+
+    img#logo {
+        margin: 3px;
+        height: 50px;
+        width: auto;
+    }
+    </style>
+</head>
+
+<body class="layout--asciidoc">
+
+<!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+<div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="https://hsc.aim42.org/"><img src="/images/site-logo.png" id="logo" width="60px" alt="htmlSanityChecker"/></a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              <a href="/userguide" >User-Guide</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="/docs/DevelopmentDocs" >Development</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="/docs/hsc_arc42" >Architecture</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="/background" >Background</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li>
+          
+        </ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+<div class="initial-content">
+    <div id="main-content">
+    <div class="paragraph">
+<p>
+<div id="header">
+<h1>Development Docs</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_prerequisites">Prerequisites</a>
+<ul class="sectlevel2">
+<li><a href="#_prerequisites_for_gradle_plugin_development">Prerequisites for Gradle Plugin Development</a></li>
+<li><a href="#_adding_new_checks">Adding New Checks</a></li>
+<li><a href="#_directory_structure_and_required_files">Directory Structure and Required Files</a></li>
+<li><a href="#_notes_for_intellij_users">Notes for IntelliJ Users</a></li>
+</ul>
+</li>
+<li><a href="#_building_the_plugin">Building the Plugin</a>
+<ul class="sectlevel2">
+<li><a href="#_uploading_publishing_to_maven_central_and_bintray">Uploading / Publishing to Maven Central and Bintray</a></li>
+<li><a href="#_uploading_to_gradle_plugin_repository">Uploading to Gradle Plugin Repository</a></li>
+</ul>
+</li>
+<li><a href="#_design_discussions">Design Discussions</a>
+<ul class="sectlevel2">
+<li><a href="#_automated_checker_factory">Automated Checker Factory</a></li>
+<li><a href="#_refactoring_the_main_checking_loop">Refactoring the Main Checking Loop</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="imageblock" style="float: right">
+<div class="content">
+<a class="image" href="https://github.com/aim42/htmlSanityCheck/blob/master/src/docs/DevelopmentGuide.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prerequisites">Prerequisites</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_prerequisites_for_gradle_plugin_development">Prerequisites for Gradle Plugin Development</h3>
+<div class="paragraph">
+<p>You should definitely read the original [Gradle User Guide] on custom plugin development.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_adding_new_checks">Adding New Checks</h3>
+<div class="paragraph">
+<p>To add new checks you have to subclass from 'org.aim42.htmlsanitycheck.check.Checker'
+and implement the 'performCheck' method - which requires an 'HtmlPage' instance as parameter.</p>
+</div>
+<div class="paragraph">
+<p>Don&#8217;t forget to:
+* write a test or spec for your checker - the code in 'test/groovy/org.aim42.htmlsanitycheck.check'
+gives many examples
+* add your checker class to the 'public static AllCheckers' list (Set, to be precise)
+of available checkers. This set is used to configure the 'AllChecksRunner' class.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_directory_structure_and_required_files">Directory Structure and Required Files</h3>
+<div class="listingblock">
+<div class="content">
+<pre>|-htmlSanityCheck
+   |  |-src
+   |  |  |-main
+   |  |  |  |-org
+   |  |  |  |  |-aim42
+   |  |  |  |  |  |-htmlsanitycheck
+   |  |  |  |  |  |  | ...
+   |  |  |  |  |  |  |-HtmlSanityCheckPlugin.groovy <i class="conum" data-value="1"></i><b>(1)</b>
+   |  |  |  |  |  |  |-HtmlSanityCheckTask.groovy
+   |  |  |  |-resources
+   |  |  |  |  |-META-INF                          <i class="conum" data-value="2"></i><b>(2)</b>
+   |  |  |  |  |  |-gradle-plugins
+   |  |  |  |  |  |  |-htmlSanityCheck.properties  <i class="conum" data-value="3"></i><b>(3)</b>
+   |  |  |-test
+   |  |  |  |-org
+   |  |  |  |  |-aim42
+   |  |  |  |  |  |-htmlsanitycheck
+   |  |  |  |  |  |  | ...
+   |  |  |  |  |  |  |-HtmlSanityCheckPluginTest
+   |</pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>the actual plugin code, a xyzPlugin and xyzTask groovy files</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Gradle expects plugin properties in META-INF</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Property file containing the name of the actual implementation class:
+<div class="literalblock">
+<div class="content">
+<pre>implementation-class=org.aim42.htmlsanitycheck.HtmlSanityCheckPlugin</pre>
+</div>
+</div></td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_notes_for_intellij_users">Notes for IntelliJ Users</h3>
+<div class="paragraph">
+<p>If you work with IntelliJ, you should configure your run- and test configurations
+so that the working-directory is set to your current module - most easily done
+by making $MODULE_DIR$ your default.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./images/intellij-run-configuration.jpg" alt="intellij run configuration"></span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_building_the_plugin">Building the Plugin</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_uploading_publishing_to_maven_central_and_bintray">Uploading / Publishing to Maven Central and Bintray</h3>
+<div class="paragraph">
+<p>t.b.c.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_uploading_to_gradle_plugin_repository">Uploading to Gradle Plugin Repository</h3>
+<div class="paragraph">
+<p>Currently we use the Gradle Plugin Repository to host the plugin - which is very simple
+to configure for users.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_design_discussions">Design Discussions</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_automated_checker_factory">Automated Checker Factory</h3>
+<div class="paragraph">
+<p><a href="https://github.com/aim42/htmlSanityCheck/issues/185">Issue 185</a>
+proposes to automatically detect and instantiate Checker
+(sub-)classes.</p>
+</div>
+<div class="sect3">
+<h4 id="_problem">Problem</h4>
+<div class="paragraph">
+<p>We want to adhere to the Open-Close principle (OCP)
+when adding new checkers:</p>
+</div>
+<div class="paragraph">
+<p>There shall be no need to touch other code when
+writing a new checker, especially should there be
+no central <em>registry</em> of checkers.</p>
+</div>
+<div class="paragraph">
+<p>Up to v 1.0.0-RC-1 we violated the OCP and allowed
+major redundancies in code:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="type">class</span> <span class="class">AllCheckers</span> {
+
+    <span class="directive">public</span> <span class="directive">final</span> <span class="directive">static</span> <span class="predefined-type">LinkedHashSet</span>&lt;<span class="predefined-type">Class</span>&gt; checkerClazzes =
+            [BrokenCrossReferencesChecker,
+             BrokenHttpLinksChecker,
+             DuplicateIdChecker,
+             ImageMapChecker,
+             MissingAltInImageTagsChecker,
+             MissingImageFilesChecker,
+             MissingLocalResourcesChecker].toSet()
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_solution_approach">Solution Approach</h4>
+<div class="paragraph">
+<p>A solution needs to address two issues:</p>
+</div>
+<div class="paragraph">
+<p>1.) <em>find</em> all Checker subclasses
+One approach here relies on Java annotations,
+described by <a href="http://farenda.com/java/java-find-annotated-classes/">Przemysław Wojnowski</a>,
+and uses the <a href="https://github.com/ronmamo/reflections">Reflections</a> library.</p>
+</div>
+<div class="paragraph">
+<p>2.) <em>instantiate</em> these classes (aka <em>Factory</em> for the checkers)</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_refactoring_the_main_checking_loop">Refactoring the Main Checking Loop</h3>
+<div class="paragraph">
+<p><a href="https://github.com/aim42/htmlSanityCheck/issues/190">Issue 190</a>
+proposes to merge the two classes AllChecksRunner and ChecksRunner.</p>
+</div>
+<div class="sect3">
+<h4 id="_proposed_new_scenario">Proposed (new) Scenario</h4>
+<div class="imageblock">
+<div class="content">
+<img src="./images/mainloop-new.png" alt="mainloop new" width="734" height="541">
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2019-01-18 21:50:04 UTC
+</div>
+</div>
+</p>
+</div>
+    </div>
+</div>
+
+<div class="page__footer">
+    <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+
+    
+      <li><a href="https://twitter.com/arc_improve42"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+
+    
+      <li><a href="https://github.com/aim42"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+
+    <li><a href="https://hsc.aim42.org/imprint"><i class="fas fa-fw fa-gavel" style="color:Tomato" aria-hidden="true"></i> Imprint & privacy</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 Dr. Gernot Starke.
+  Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.
+  Supported by <a href="https://INNOQ.com"><b>INNOQ</b></a>.
+
+</div>
+
+    </footer>
+</div>
+
+
+  <script src="/assets/js/main.min.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.6.0/js/all.js" integrity="sha384-z9ZOvGHHo21RqN5De4rfJMoAxYpaVoiYhuJXPyVmSs8yn20IE3PmBM534CffwSJI" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

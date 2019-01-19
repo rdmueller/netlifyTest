@@ -1,0 +1,487 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.15.1 by Michael Rose
+  Copyright 2013-2019 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>Imprint &amp; Privacy - htmlSanityChecker</title>
+<meta name="description" content="Finding the bugs in your (generated) html - and real-life example for documentation-as code.">
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="htmlSanityChecker">
+<meta property="og:title" content="Imprint &amp; Privacy">
+<meta property="og:url" content="https://hsc.aim42.org/imprint/">
+
+
+
+
+  <meta property="og:image" content="https://hsc.aim42.org/images/splash/privacy-274694-unsplash.jpg">
+
+
+
+  <meta name="twitter:site" content="@arc_improve42">
+  <meta name="twitter:title" content="Imprint &amp; Privacy">
+  <meta name="twitter:description" content="Finding the bugs in your (generated) html - and real-life example for documentation-as code.">
+  <meta name="twitter:url" content="https://hsc.aim42.org/imprint/">
+
+  
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://hsc.aim42.org/images/splash/privacy-274694-unsplash.jpg">
+  
+
+  
+
+
+
+
+
+
+
+
+<link rel="canonical" href="https://hsc.aim42.org/imprint/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "aim42",
+      "url": "https://hsc.aim42.org",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="htmlSanityChecker Feed">
+
+<!-- https://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if IE ]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <!-- favicon stuff from https://realfavicongenerator.net/ -->
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="theme-color" content="#ffffff">
+
+<!-- end favicon stuff -->
+
+<!-- start custom head snippets -->
+
+
+<link rel="stylesheet" href="/css/asciidoc.css">
+<link rel="stylesheet" href="/css/coderay.css">
+<style>
+    li p {
+        margin: 0 !important;
+    }
+
+    .admonitionblock td.icon {
+        border: 0px;
+    }
+
+    .admonitionblock td.content {
+        border-left: 1px solid black;
+        border-bottom: 0px;
+        font-size: 1em;
+    }
+    .literalblock pre,.literalblock pre[class],.listingblock pre,.listingblock pre[class]{
+        font-size:0.75em
+    }
+
+</style>
+
+<!-- for code blocks -->
+<style>
+    h1, h2, h3, h4, h5 {
+        color: #7a2518;
+        margin-bottom: 1em;
+    }
+    h2 ~ div.paragraph {
+        padding-left: 0.3em;
+    }
+    h3 ~ div.paragraph {
+        padding-left: 0.6em;
+    }
+    h4 ~ div.paragraph {
+        padding-left: 0.9em;
+    }
+    div.openblock.primary div.content, div.openblock.secondary div.content {
+        border: 1px solid #7a2518;
+        padding: 5px;
+    }
+    div.openblock.primary div.content div.content, div.openblock.secondary div.content div.content {
+        border: 0px solid #7a2518;
+        padding: 0;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .switch {
+        border-width: 1px 1px 0 1px;
+        border-style: solid;
+        border-color: #7a2518;
+        display: inline-block;
+    }
+
+    .switch--item {
+        padding: 2px 10px;
+        background-color: #ffffff;
+        color: #7a2518;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .switch--item:not(:first-child) {
+        border-width: 0 0 0 1px;
+        border-style: solid;
+        border-color: #7a2518;
+    }
+
+    .switch--item.selected {
+        background-color: #7a2519;
+        color: #ffffff;
+    }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+<script type="text/javascript">
+    function addBlockSwitches() {
+        $('.primary').each(function() {
+            primary = $(this);
+            createSwitchItem(primary, createBlockSwitch(primary)).item.addClass("selected");
+            primary.children('.title').remove();
+        });
+        $('.secondary').each(function(idx, node) {
+            secondary = $(node);
+            primary = findPrimary(secondary);
+            switchItem = createSwitchItem(secondary, primary.children('.switch'));
+            switchItem.content.addClass('hidden');
+            findPrimary(secondary).append(switchItem.content);
+            secondary.remove();
+        });
+    }
+
+    function createBlockSwitch(primary) {
+        blockSwitch = $('<div class="switch"></div>');
+        primary.prepend(blockSwitch);
+        return blockSwitch;
+    }
+
+    function findPrimary(secondary) {
+        candidate = secondary.prev();
+        while (!candidate.is('.primary')) {
+            candidate = candidate.prev();
+        }
+        return candidate;
+    }
+
+    function createSwitchItem(block, blockSwitch) {
+        blockName = block.children('.title').text();
+        content = block.children('.content').first().append(block.next('.colist'));
+        item = $('<div class="switch--item">' + blockName + '</div>');
+        item.on('click', '', content, function(e) {
+            $(this).addClass('selected');
+            $(this).siblings().removeClass('selected');
+            e.data.siblings('.content').addClass('hidden');
+            e.data.removeClass('hidden');
+        });
+        blockSwitch.append(item);
+        return {'item': item, 'content': content};
+    }
+
+    $(addBlockSwitches);
+</script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+<script> window.addEventListener("load", function(){ window.cookieconsent.initialise({ "palette": { "popup": { "background": "#eb6c44", "text": "#ffffff" }, "button": { "background": "#f5d948" } } })});
+</script>
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="https://hsc.aim42.org/"><img src="/images/site-logo.png" id="logo" width="60px" alt="htmlSanityChecker"/></a>
+        <ul class="visible-links">
+          
+            
+            <li class="masthead__menu-item">
+              <a href="/userguide" >User-Guide</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="/docs/DevelopmentDocs" >Development</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="/docs/hsc_arc42" >Architecture</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="/background" >Background</a>
+            </li>
+          
+            
+            <li class="masthead__menu-item">
+              <a href="/about/" >About</a>
+            </li>
+          
+        </ul>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+  
+
+
+
+
+
+
+
+
+
+
+
+<div class="page__hero--overlay"
+  style=" background-image: url('/images/splash/privacy-274694-unsplash.jpg');"
+>
+  
+    <div class="wrapper">
+      <h1 id="page-title" class="page__title" itemprop="headline">
+        
+          Imprint &amp; Privacy
+
+        
+      </h1>
+      
+      
+      
+      
+    </div>
+  
+  
+    <span class="page__hero-caption"><a href="https://unsplash.com/photos/yekGLpc3vro"><strong>Scott Webb</strong></a>
+</span>
+  
+</div>
+
+
+
+
+
+<div id="main" role="main">
+  
+
+  <article class="page" itemscope itemtype="https://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Imprint &amp; Privacy">
+    
+    
+    
+
+    <div class="page__inner-wrap">
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>The following text has to be included in sites provided from Germany by German citicens,
+due to our sometimes strange, inconsistent and user-unfriendly data privacy laws.</p>
+
+<p>At the end of this page you find some information about licenses for various
+products we use to produce and maintain the site!</p>
+
+<h2 id="imprint">Imprint</h2>
+
+<h4 id="anbieter">Anbieter</h4>
+
+<p>Dr. Gernot Starke (Willi-Lauf Allee 43, D-50858 Köln).</p>
+
+<h4 id="kontakt">Kontakt</h4>
+
+<p>Telefon: +49-177-728 2570<br />
+e-Mail: <a hrefenc="xmxaxixlxtxo:ixnxfxox@xaxrxcx4x2x.xdxe" onmouseover="this.href=this.hrefenc.replace(/x/g,'');">Email (gegen Spam gesichert)</a><br />
+Website: <a href="http://gernotstarke.de">gernotstarke.de</a></p>
+
+<h4 id="verantwortlich-nach--6-abs2-mdstv">Verantwortlich nach § 6 Abs.2 MDStV</h4>
+
+<p>Dr. Gernot Starke.</p>
+
+<h2 id="privacy-statement-datenschutzerklärung">Privacy Statement (Datenschutzerklärung)</h2>
+
+<p>Diese Website sammelt <strong>keine personenbezogenen Daten</strong>.</p>
+
+<h4 id="geltungsbereich">Geltungsbereich</h4>
+<p>Diese Datenschutzerklärung klärt Nutzer über die Art, den Umfang und Zwecke der Erhebung und Verwendung personenbezogener Daten durch den verantwortlichen Anbieter Dr. Gernot Starke, Willi-Lauf Allee 43, D-50858 Köln, Deutschland, <a hrefenc="xmxaxixlxtxo:ixnxfxox@xaxrxcx4x2x.xdxe" onmouseover="this.href=this.hrefenc.replace(/x/g,'');">Email (gegen Spam gesichert)</a>, Tel.: +49 177 7282570 auf dieser Website (im folgenden “Angebot”) auf.<br />
+<br />
+Die rechtlichen Grundlagen des Datenschutzes finden sich im Bundesdatenschutzgesetz (BDSG) und dem Telemediengesetz (TMG).<br />
+<br /></p>
+
+<h4 id="zugriffsdaten-server-logfiles">Zugriffsdaten/ Server-Logfiles</h4>
+<p>Der Anbieter (beziehungsweise sein Webspace-Provider) erhebt Daten über jeden Zugriff auf das Angebot (so genannte Serverlogfiles). Zu den Zugriffsdaten gehören:<br />
+<br />
+Name der abgerufenen Webseite, Datei, Datum und Uhrzeit des Abrufs, übertragene Datenmenge, Meldung über erfolgreichen Abruf, Browsertyp nebst Version, das Betriebssystem des Nutzers, Referrer URL (die zuvor besuchte Seite), IP-Adresse und der anfragende Provider.<br />
+<br />
+Der Anbieter verwendet die Protokolldaten nur für statistische Auswertungen zum Zweck des Betriebs, der Sicherheit und der Optimierung des Angebotes. Der Anbieterbehält sich jedoch vor, die Protokolldaten nachträglich zu überprüfen, wenn aufgrund konkreter Anhaltspunkte der berechtigte Verdacht einer rechtswidrigen Nutzung besteht.</p>
+
+<h4 id="kontaktaufnahme">Kontaktaufnahme</h4>
+<p>Bei der Kontaktaufnahme mit dem Anbieter (zum Beispiel per Kontaktformular oder E-Mail) werden die Angaben des Nutzers zwecks Bearbeitung der Anfrage sowie für den Fall, dass Anschlussfragen entstehen, gespeichert.</p>
+
+<h4 id="kommentare-und-beiträge">Kommentare und Beiträge</h4>
+<p>Wenn Nutzer Kommentare im Blog oder sonstige Beiträge hinterlassen, werden ihre IP-Adressen gespeichert. Das erfolgt zur Sicherheit des Anbieters, falls jemand in Kommentaren und Beiträgen widerrechtliche Inhalte schreibt (Beleidigungen, verbotene politische Propaganda, etc.). In diesem Fall kann der Anbieter selbst für den Kommentar oder Beitrag belangt werden und ist daher an der Identität des Verfassers interessiert.</p>
+
+<h4 id="widerruf-änderungen-berichtigungen-und-aktualisierungen">Widerruf, Änderungen, Berichtigungen und Aktualisierungen</h4>
+<p>Der Nutzer hat das Recht, auf Antrag unentgeltlich Auskunft zu erhalten über die personenbezogenen Daten, die über ihn gespeichert wurden. Zusätzlich hat der Nutzer das Recht auf Berichtigung unrichtiger Daten, Sperrung und Löschung seiner personenbezogenen Daten, soweit dem keine gesetzliche Aufbewahrungspflicht entgegensteht.<br /></p>
+
+<h4 id="quelle">Quelle</h4>
+<p>Danke an Hr Rechtsanwalt Thomas Schwenke:<br />
+<a href="http://rechtsanwalt-schwenke.de/smmr-buch/datenschutz-muster-generator-fuer-webseiten-blogs-und-social-media/"><strong>Datenschutz-Muster von Rechtsanwalt Thomas Schwenke - I LAW it</strong></a></p>
+
+<h2 id="licensing-stuff">Licensing Stuff</h2>
+
+<p>This site uses…</p>
+<ul>
+  <li>some of the free <a href="https://fontawesome.com/license/free">Fontawesome</a> icons.</li>
+  <li>some free images from the awesome <a href="https://unsplash.com">Unsplash</a> collection.</li>
+  <li>Youtube to embedd tutorial videos. Youtube might set cookies for better user experience.</li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+
+
+        
+      </footer>
+
+      
+
+      
+    </div>
+
+    
+  </article>
+
+  
+  
+</div>
+
+    </div>
+
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+
+    
+      <li><a href="https://twitter.com/arc_improve42"><i class="fab fa-fw fa-twitter-square" aria-hidden="true"></i> Twitter</a></li>
+    
+
+    
+      <li><a href="https://github.com/aim42"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+    
+
+    <li><a href="https://hsc.aim42.org/imprint"><i class="fas fa-fw fa-gavel" style="color:Tomato" aria-hidden="true"></i> Imprint & privacy</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 Dr. Gernot Starke.
+  Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.
+  Supported by <a href="https://INNOQ.com"><b>INNOQ</b></a>.
+
+</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.6.0/js/all.js" integrity="sha384-z9ZOvGHHo21RqN5De4rfJMoAxYpaVoiYhuJXPyVmSs8yn20IE3PmBM534CffwSJI" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+
+  </body>
+</html>
